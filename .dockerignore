@@ -1,0 +1,6 @@
+.git
+__pycache__
+*.pyc
+*.swp
+.idea
+.github

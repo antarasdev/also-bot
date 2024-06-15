@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-WORKDIR /employes
+WORKDIR /also-bot
 
 COPY requirements.txt .
 RUN pip install --upgrade pip
