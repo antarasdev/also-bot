@@ -1,3 +1,8 @@
-API_TOKEN = '7258988033:AAF8rGKKhKAInN7jT0-2q6sLcUglDyU8N_g'
-CHAT_ID = '-1001713823268'
-DATA_FILE = 'employees.csv'
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+API_TOKEN = os.getenv('API_TOKEN')
+CHAT_ID = os.getenv('CHAT_ID')
+DATA_FILE = os.getenv('DATA_FILE')
