@@ -5,8 +5,9 @@ class AddEmployee(StatesGroup):
     name = State()
     department = State()
     start_date = State()
+    username = State()
 
 
 class RemoveEmployee(StatesGroup):
-    name = State()
+    username = State()
     department = State()

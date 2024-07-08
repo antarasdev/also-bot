@@ -4,21 +4,21 @@ import pandas as pd
 from config.config import DATA_FILE, CHAT_ID
 
 
-
-def add_employee(name, department, start_date):
+def add_employee(name, department, start_date, username):
     df = pd.read_csv(DATA_FILE)
     new_employee = pd.DataFrame({
         'name': [name],
         'department': [department],
-        'start_date': [start_date]
+        'start_date': [start_date],
+        'username': [username],
     })
     df = pd.concat([df, new_employee], ignore_index=True)
     df.to_csv(DATA_FILE, index=False)
 
 
-def remove_employee(name, department):
+def remove_employee(username, department):
     df = pd.read_csv(DATA_FILE)
-    df = df[(df['name'] != name) | (df['department'] != department)]
+    df = df[(df['username'] != username) | (df['department'] != department)]
     df.to_csv(DATA_FILE, index=False)
 
 
@@ -36,7 +36,7 @@ async def check_anniversary():
         anniversary_date = datetime.date(today.year, start_date.month, start_date.day)
         if anniversary_date == today:
             years_in_company = today.year - start_date.year
-            await send_congratulations(CHAT_ID, row['name'], row['department'], years_in_company)
+            await send_congratulations(CHAT_ID, row['username'], row['department'], years_in_company)
             await asyncio.sleep(1)
 
 
