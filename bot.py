@@ -1,4 +1,6 @@
 import asyncio
+import logging
+
 from config.log_config import setup_logging
 from utils import csv_utils
 from config.config import API_TOKEN
@@ -21,9 +23,9 @@ async def set_default_commands(bot):
 
 async def check_anniversary_periodically():
     while True:
+        logging.info("Проверка годовщин...")
         await csv_utils.check_anniversary()
         await asyncio.sleep(12 * 60 * 60)  # 12 часов в секундах
-
 
 
 async def main():
@@ -35,6 +37,7 @@ async def main():
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     loop = asyncio.get_event_loop()
     loop.create_task(check_anniversary_periodically())
     loop.create_task(main())
