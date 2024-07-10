@@ -110,6 +110,7 @@ ENV/
 env.bak/
 venv.bak/
 .idea
+tests/
 # other Files
 script.py
 swagger_spec.yaml
