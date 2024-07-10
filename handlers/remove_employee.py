@@ -10,20 +10,44 @@ router_remove_employee = Router()
 
 
 @router_remove_employee.message(Command('remove_employee'))
-async def remove_employee_start(message: types.Message, state: FSMContext):
+async def remove_employee_start(message: types.Message, state: FSMContext) -> None:
+    """
+    Начало процесса удаления сотрудника
+    Args:
+        message (types.Message): Сообщение от пользователя
+        state (FSMContext): Контекст состояния машины состояний
+    Returns:
+        None
+    """
     await state.set_state(RemoveEmployee.username)
     await message.answer('Введите @username сотрудника')
 
 
 @router_remove_employee.message(RemoveEmployee.username)
-async def process_username(message: types.Message, state: FSMContext):
+async def process_username(message: types.Message, state: FSMContext) -> None:
+    """
+    Обработка username сотрудника
+    Args:
+        message (types.Message): Сообщение от пользователя
+        state (FSMContext): Контекст состояния машины состояний
+    Returns:
+        None
+    """
     await state.update_data(username=message.text)
     await state.set_state(RemoveEmployee.department)
     await message.answer("Введите отдел сотрудника:")
 
 
 @router_remove_employee.message(RemoveEmployee.department)
-async def process_department(message: types.Message, state: FSMContext):
+async def process_department(message: types.Message, state: FSMContext) -> None:
+    """
+    Обработка отдела сотрудника
+    Args:
+        message (types.Message): Сообщение от пользователя
+        state (FSMContext): Контекст состояния машины состояний
+    Returns:
+        None
+    """
     await state.update_data(department=message.text)
     user_data = await state.get_data()
     remove_employee(user_data['username'], user_data['department'])
