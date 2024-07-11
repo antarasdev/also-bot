@@ -62,7 +62,11 @@ async def check_anniversary():
         anniversary_date = datetime.date(today.year, start_date.month, start_date.day)
         if anniversary_date == today:
             years_in_company = today.year - start_date.year
-            await send_congratulations(CHAT_ID, row['username'], row['department'], years_in_company)
+            await send_congratulations(
+                username=row['username'],
+                department=row['department'],
+                years=years_in_company
+            )
             await asyncio.sleep(1)
 
 
@@ -96,12 +100,15 @@ def capitalize_name(name: str) -> str:
 
 def decline_number(number: int) -> str:
     """
-    Склоняет число по падежам
+    Склоняет число лет по падежам
     Args:
-        number (int): Число
+        number (int): Количество лет
     Returns:
-        str: Склоненное число
+        str: Склоненное количество лет
     """
-    parsed_word = morph.parse('год')[0]
-    declined_word = parsed_word.make_agree_with_number(number).word
-    return f"{number} {declined_word}"
+    if number % 10 == 1 and number % 100 != 11:
+        return f"{number} год"
+    elif 2 <= number % 10 <= 4 and (number % 100 < 10 or number % 100 >= 20):
+        return f"{number} года"
+    else:
+        return f"{number} лет"
