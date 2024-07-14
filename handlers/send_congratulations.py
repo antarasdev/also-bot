@@ -19,4 +19,6 @@ async def send_congratulations(username: str, department: str, years: str) -> No
         None
     """
     declined_years = decline_number(years)
-    await bot.send_message(CHAT_ID, f"Поздравляем {username} {department}! Вы с нами уже {declined_years}!")
+    await bot.send_message(
+        CHAT_ID,
+        f"{username} | {department}. Поздравляем! Вы с нами уже {declined_years}!🎉🎉🎉")

@@ -92,7 +92,7 @@ async def process_start_date(message: types.Message, state: FSMContext) -> None:
     start_date = datetime.datetime.strptime(user_data['start_date'], '%d.%m.%Y').date()
     anniversary_date = datetime.date(today.year, start_date.month, start_date.day)
     if anniversary_date <= today:
-        years_in_company = today.year - start_date.year
-        await send_congratulations(CHAT_ID, user_data['username'], user_data['department'], years_in_company)
+        years = today.year - start_date.year
+        await send_congratulations(user_data['username'], user_data['department'], years)
 
     await state.clear()
