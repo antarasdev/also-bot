@@ -30,6 +30,10 @@ async def set_default_commands(bot: Bot) -> None:
     await bot.set_my_commands(commands)
 
 
+async def handle_unprocessed_messages(message: types.Message):
+    logging.warning(f"Необработанное сообщение от пользователя {message.from_user.id}: {message.text}")
+
+
 async def main() -> None:
     """
     Главная функция запуска бота
@@ -39,6 +43,7 @@ async def main() -> None:
     setup_logging()
     dp = Dispatcher()
     dp.include_routers(router, router_add_employee, router_remove_employee, quotes)
+    dp.message.register(handle_unprocessed_messages)
     await set_default_commands(bot)
     await bot.delete_webhook(drop_pending_updates=True)
     await check_anniversary()
