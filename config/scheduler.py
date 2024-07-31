@@ -14,7 +14,7 @@ def also_bot_scheduler() -> AsyncIOScheduler:
     scheduler = AsyncIOScheduler()
     scheduler.add_listener(job_execution_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
     scheduler.add_job(check_anniversary, 'cron', hour=10, minute=0)
-    scheduler.add_job(send_quote, 'cron', hour=20, minute=0)
+    scheduler.add_job(send_quote, 'cron', hour=9, minute=30)
     return scheduler
 
 
