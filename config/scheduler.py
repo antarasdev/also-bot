@@ -1,10 +1,11 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR, JobExecutionEvent
-from utils.csv_utils import check_anniversary
+from handlers.send_congratulations import check_anniversary
+from handlers.quotes import send_quote
 import logging
 
 
-def check_anniversary_scheduler() -> AsyncIOScheduler:
+def also_bot_scheduler() -> AsyncIOScheduler:
     """
     Создает планировщик задач для проверки дней рождения сотрудников
     Returns:
@@ -13,6 +14,7 @@ def check_anniversary_scheduler() -> AsyncIOScheduler:
     scheduler = AsyncIOScheduler()
     scheduler.add_listener(job_execution_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
     scheduler.add_job(check_anniversary, 'cron', hour=10, minute=0)
+    scheduler.add_job(send_quote, 'cron', hour=20, minute=0)
     return scheduler
 
 

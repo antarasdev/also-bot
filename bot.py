@@ -2,13 +2,14 @@ import asyncio
 import logging
 
 from config.log_config import setup_logging
-from utils import csv_utils
 from config.config import API_TOKEN
-from config.scheduler import check_anniversary_scheduler
+from config.scheduler import also_bot_scheduler
 from aiogram import Bot, Dispatcher, types
 from handlers.start import router
 from handlers.add_employee import router_add_employee
 from handlers.remove_employee import router_remove_employee
+from handlers.send_congratulations import check_anniversary
+from handlers.quotes import quotes
 
 bot = Bot(token=API_TOKEN)
 
@@ -37,11 +38,11 @@ async def main() -> None:
     """
     setup_logging()
     dp = Dispatcher()
-    dp.include_routers(router, router_add_employee, router_remove_employee)
+    dp.include_routers(router, router_add_employee, router_remove_employee, quotes)
     await set_default_commands(bot)
     await bot.delete_webhook(drop_pending_updates=True)
-    await csv_utils.check_anniversary()
-    scheduler = check_anniversary_scheduler()
+    await check_anniversary()
+    scheduler = also_bot_scheduler()
     scheduler.start()
     await dp.start_polling(bot)
 

@@ -49,27 +49,6 @@ def read_data() -> pd.DataFrame:
     return df
 
 
-async def check_anniversary():
-    """
-    Проверяет, есть ли сегодня день рождения у кого-то из сотрудников
-    и отправляет поздравления, если есть
-    """
-    from handlers.send_congratulations import send_congratulations
-    today = datetime.date.today()
-    df = read_data()
-    for index, row in df.iterrows():
-        start_date = datetime.datetime.strptime(row['start_date'], '%d.%m.%Y').date()
-        anniversary_date = datetime.date(today.year, start_date.month, start_date.day)
-        if anniversary_date == today:
-            years_in_company = today.year - start_date.year
-            await send_congratulations(
-                username=row['username'],
-                department=row['department'],
-                years=years_in_company
-            )
-            await asyncio.sleep(1)
-
-
 def decline_name_parts(full_name: str) -> str:
     """
     Склоняет части имени по падежам
