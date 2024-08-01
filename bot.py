@@ -30,10 +30,6 @@ async def set_default_commands(bot: Bot) -> None:
     await bot.set_my_commands(commands)
 
 
-async def handle_unprocessed_messages(message: types.Message):
-    logging.warning(f"Необработанное сообщение от пользователя {message.from_user.id}: {message.text}")
-
-
 async def main() -> None:
     """
     Главная функция запуска бота

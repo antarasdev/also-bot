@@ -30,4 +30,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/also-bot:v1.4
+          tags: ${{ secrets.DOCKER_USERNAME }}/also-bot:latest
