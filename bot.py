@@ -41,7 +41,7 @@ async def main() -> None:
     dp.include_routers(router, router_add_employee, router_remove_employee, quotes)
     await set_default_commands(bot)
     await bot.delete_webhook(drop_pending_updates=True)
-    await check_anniversary()
+    # await check_anniversary()
     scheduler = also_bot_scheduler()
     scheduler.start()
     await dp.start_polling(bot)
