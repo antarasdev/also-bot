@@ -31,6 +31,7 @@ async def check_anniversary():
     Проверяет, есть ли сегодня день рождения у кого-то из сотрудников
     и отправляет поздравления, если есть
     """
+    logging.info("Checking anniversary")
     today = datetime.date.today()
     df = read_data()
     for index, row in df.iterrows():
