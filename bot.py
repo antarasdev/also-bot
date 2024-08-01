@@ -39,7 +39,6 @@ async def main() -> None:
     setup_logging()
     dp = Dispatcher()
     dp.include_routers(router, router_add_employee, router_remove_employee, quotes)
-    dp.message.register(handle_unprocessed_messages)
     await set_default_commands(bot)
     await bot.delete_webhook(drop_pending_updates=True)
     await check_anniversary()

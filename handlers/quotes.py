@@ -39,6 +39,5 @@ async def send_quote():
     """
      Обрабатывает команду /quote и отправляет цитату в чат.
     """
-    logging.info("Sending quote")
     quote_text = get_quote()
     await bot.send_message(chat_id=config.CHAT_ID, text=quote_text)

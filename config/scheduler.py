@@ -1,5 +1,4 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from apscheduler.timezone import get_timezone
 from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR, JobExecutionEvent
 from handlers.send_congratulations import check_anniversary
 from handlers.quotes import send_quote
@@ -12,10 +11,10 @@ def also_bot_scheduler() -> AsyncIOScheduler:
     Returns:
         AsyncIOScheduler: Планировщик задач
     """
-    scheduler = AsyncIOScheduler(timezone=get_timezone('Europe/Moscow'))
+    scheduler = AsyncIOScheduler()
     scheduler.add_listener(job_execution_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
+    scheduler.add_job(send_quote, 'cron', hour=11, minute=0)
     scheduler.add_job(check_anniversary, 'cron', hour=10, minute=0)
-    scheduler.add_job(send_quote, 'cron', hour=9, minute=30)
     return scheduler
 
 
