@@ -31,7 +31,7 @@ def get_quote() -> str:
     if quote_author:
         return f'💬 Цитата дня:\n\n "{quote_text}"\n\n— {quote_author}'
     else:
-        return f'{quote_text}\n\n— Неизвестный автор'
+        return f'💬 Цитата дня:\n\n "{quote_text}"\n\n— Неизвестный автор'
 
 
 @quotes.message(Command('quote'))
